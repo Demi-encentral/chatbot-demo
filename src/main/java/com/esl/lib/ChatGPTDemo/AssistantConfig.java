@@ -9,11 +9,19 @@ import dev.langchain4j.retriever.EmbeddingStoreRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.cassandra.AstraDbEmbeddingConfiguration;
 import dev.langchain4j.store.embedding.cassandra.AstraDbEmbeddingStore;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AssistantConfig {
+
+    @Value("${database.token}")
+    private String astraToken;
+
+    @Value("${database.id}")
+    private String databaseId;
+
     @Bean
     public EmbeddingModel embeddingModel() {
         return new AllMiniLmL6V2EmbeddingModel();
@@ -21,16 +29,17 @@ public class AssistantConfig {
 
     @Bean
     public AstraDbEmbeddingStore astraDbEmbeddingStore() {
-        String astraToken = "<your-astradb-token>";
-        String databaseId = "<your-database-id>";
+
+        String astraToken = this.astraToken;
+        String databaseId = this.databaseId;
 
         return new AstraDbEmbeddingStore(AstraDbEmbeddingConfiguration
                 .builder()
                 .token(astraToken)
                 .databaseId(databaseId)
-                .databaseRegion("us-east1")
-                .keyspace("demo_table")
-                .table("demo2")
+                .databaseRegion("us-east-1")
+                .keyspace("ai_assistant")
+                .table("demo")
                 .dimension(384)
                 .build());
     }
