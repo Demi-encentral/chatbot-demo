@@ -22,6 +22,9 @@ public class AssistantConfig {
     @Value("${database.id}")
     private String databaseId;
 
+    @Value("${chat.api.key}")
+    private String apiKey;
+
     @Bean
     public EmbeddingModel embeddingModel() {
         return new AllMiniLmL6V2EmbeddingModel();
@@ -38,7 +41,7 @@ public class AssistantConfig {
                 .token(astraToken)
                 .databaseId(databaseId)
                 .databaseRegion("us-east-1")
-                .keyspace("ai_assistant")
+                .keyspace("default_keyspace")
                 .table("demo")
                 .dimension(384)
                 .build());
@@ -56,7 +59,7 @@ public class AssistantConfig {
     @Bean
     public ConversationalRetrievalChain conversationalRetrievalChain() {
         return ConversationalRetrievalChain.builder()
-                .chatLanguageModel(OpenAiChatModel.withApiKey("demo"))
+                .chatLanguageModel(OpenAiChatModel.withApiKey(apiKey))
                 .retriever(EmbeddingStoreRetriever.from(astraDbEmbeddingStore(), embeddingModel()))
                 .build();
     }

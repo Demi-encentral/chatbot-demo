@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 		<langchain4j.version>0.25.0</langchain4j.version>
 		<langchain4j.groupId>dev.langchain4j</langchain4j.groupId>
+		<spring-fox.version>3.0.0</spring-fox.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -75,6 +76,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
