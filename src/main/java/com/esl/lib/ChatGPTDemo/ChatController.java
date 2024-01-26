@@ -1,8 +1,10 @@
 package com.esl.lib.ChatGPTDemo;
 
+import com.esl.lib.ChatGPTDemo.services.DataExportService;
 import dev.langchain4j.chain.ConversationalRetrievalChain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 public class ChatController {
+
+    @Autowired
+    private DataExportService dataExportService;
 
     private final ConversationalRetrievalChain conversationalRetrievalChain;
 
