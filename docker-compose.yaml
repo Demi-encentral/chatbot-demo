@@ -1,15 +1,8 @@
-version: '3.9'
+version: '3'
+
 services:
-  cassandra:
-    image: cassandra:latest
-    container_name: my-cassandra
+  redis:
+    image: "redis:latest"
+    container_name: "my-redis-container"
     ports:
-      - 9042:9042
-    environment:
-      - CASSANDRA_CLUSTER_NAME=test_cluster
-    volumes:
-      - cassandra-data:/var/lib/cassandra
-
-volumes:
-  cassandra-data:
-
+      - "6379:6379"
